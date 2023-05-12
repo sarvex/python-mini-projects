@@ -16,8 +16,13 @@ def gen_cloud(topic):
         sys.exit()
     STOPWORDS.add('==')
     stopwords = set(STOPWORDS)
-    wordcloud = WordCloud(stopwords=stopwords, max_words=200, background_color="black", width=600, height=350).generate(content)
-    return wordcloud
+    return WordCloud(
+        stopwords=stopwords,
+        max_words=200,
+        background_color="black",
+        width=600,
+        height=350,
+    ).generate(content)
 
 
 # function to save the wordcloud to current directory

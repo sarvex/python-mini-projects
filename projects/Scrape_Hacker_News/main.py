@@ -19,17 +19,17 @@ def fetch(page_no, verbose=False):
     page_no = min(page_no, 20)
     i = page_no
     if verbose:
-        print('Fetching Page {}...'.format(i))
+        print(f'Fetching Page {i}...')
     try:
-        res = requests.get('https://news.ycombinator.com/?p=' + str(i))
+        res = requests.get(f'https://news.ycombinator.com/?p={str(i)}')
         only_td = SoupStrainer('td')
         soup = BeautifulSoup(res.content, 'html.parser', parse_only=only_td)
         tdtitle = soup.find_all('td', attrs={'class': 'title'})
         tdmetrics = soup.find_all('td', attrs={'class': 'subtext'})
-        with open(os.path.join('HackerNews', 'NewsPage{}.txt'.format(i)), 'w+') as f:
+        with open(os.path.join('HackerNews', f'NewsPage{i}.txt'), 'w+') as f:
             f.write('-' * 80)
             f.write('\n')
-            f.write('Page {}'.format(i))
+            f.write(f'Page {i}')
             tdtitle = soup.find_all('td', attrs={'class': 'title'})
             tdrank = soup.find_all(
                 'td',
@@ -77,9 +77,9 @@ def fetch(page_no, verbose=False):
                     time.text if time else '\nPosted: Could not find when the article was posted')
                 f.write('\n' + '-' * 80 + '\n')
     except (requests.ConnectionError, requests.packages.urllib3.exceptions.ConnectionError) as e:
-        print('Connection Failed for page {}'.format(i))
+        print(f'Connection Failed for page {i}')
     except requests.RequestException as e:
-        print("Some ambiguous Request Exception occurred. The exception is " + str(e))
+        print(f"Some ambiguous Request Exception occurred. The exception is {str(e)}")
 
 
 while(True):

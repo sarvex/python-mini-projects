@@ -23,14 +23,14 @@ try:
         res["total_characters"] = len(data.replace(" ","")) - res["total_lines"]
         counter = collections.Counter(data.split())
         d = counter.most_common()
-        res["total_words"] = sum([i[1] for i in d])
+        res["total_words"] = sum(i[1] for i in d)
         res["unique_words"] = len([i[0] for i in d])
         special_chars = string.punctuation
         res["special_characters"] = sum(v for k, v in collections.Counter(data).items() if k in special_chars)
 
 except IndexError:
-    print('Usage: %s TEXTFILE' % script_name)
+    print(f'Usage: {script_name} TEXTFILE')
 except IOError:
-    print('"%s" cannot be opened.' % textfile)
+    print(f'"{textfile}" cannot be opened.')
 
 print(res)

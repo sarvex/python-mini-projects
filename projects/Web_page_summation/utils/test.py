@@ -43,7 +43,7 @@ with tf.Session() as sess:
     model = Model(reversed_dict, article_max_len,
                   summary_max_len, args, forward_only=True)
     saver = tf.train.Saver(tf.global_variables())
-    ckpt = tf.train.get_checkpoint_state(default_path + "saved_model/")
+    ckpt = tf.train.get_checkpoint_state(f"{default_path}saved_model/")
     saver.restore(sess, ckpt.model_checkpoint_path)
 
     batches = batch_iter(valid_x, [0] * len(valid_x), args.batch_size, 1)
@@ -62,15 +62,15 @@ with tf.Session() as sess:
         prediction_output = [[reversed_dict[y]
                               for y in x] for x in prediction[:, 0, :]]
         summary_array = []
-        with open(default_path + "result.txt", "a") as f:
+        with open(f"{default_path}result.txt", "a") as f:
             for line in prediction_output:
-                summary = list()
+                summary = []
                 for word in line:
                     if word == "</s>":
                         break
                     if word not in summary:
                         summary.append(word)
                 summary_array.append(" ".join(summary))
-                # print(" ".join(summary), file=f)
+                            # print(" ".join(summary), file=f)
 
     print('Summaries have been generated')

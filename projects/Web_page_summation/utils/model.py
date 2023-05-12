@@ -11,10 +11,7 @@ class Model(object):
         self.num_layers = args.num_layers
         self.learning_rate = args.learning_rate
         self.beam_width = args.beam_width
-        if not forward_only:
-            self.keep_prob = args.keep_prob
-        else:
-            self.keep_prob = 1.0
+        self.keep_prob = args.keep_prob if not forward_only else 1.0
         self.cell = tf.nn.rnn_cell.BasicLSTMCell
         with tf.variable_scope("decoder/projection"):
             self.projection_layer = tf.layers.Dense(

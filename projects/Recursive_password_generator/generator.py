@@ -10,8 +10,7 @@ def stretch(text,maxlength):
 
 def get_random_char():
     chars = string.printable
-    randomChar = chars[random.randint(0,len(chars)-1)]
-    return randomChar
+    return chars[random.randint(0,len(chars)-1)]
 
 while 1:
     maxlen = input(' [?] Enter a length for your password (e for exit): ')

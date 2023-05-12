@@ -21,7 +21,7 @@ def setup(url):
         'a', {'href': re.compile('^((?!void).)*$')})
     nextlinks = [i.attrs['href'] for i in anchors]
     for idx, link in enumerate(tqdm(nextlinks)):
-        scrap('https://www.moneycontrol.com'+link, idx)
+        scrap(f'https://www.moneycontrol.com{link}', idx)
 
 #scraps passed page url 
 def scrap(url, idx):
@@ -44,7 +44,7 @@ def scrap(url, idx):
 #save data as json named by current date
 def json_dump(data):
     date = datetime.date.today().strftime("%B %d, %Y")
-    with open('moneycontrol_'+str(date)+'.json', 'w') as outfile:
+    with open(f'moneycontrol_{str(date)}.json', 'w') as outfile:
         json.dump(submission, outfile)
 
 setup(src_url)

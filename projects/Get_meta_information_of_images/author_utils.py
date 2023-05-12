@@ -45,7 +45,7 @@ class SID_NAME_USE(wintypes.DWORD):
         return self._sid_types[self.value]
 
     def __repr__(self):
-        return 'SID_NAME_USE(%s)' % self.value
+        return f'SID_NAME_USE({self.value})'
 
 PSID_NAME_USE = ctypes.POINTER(SID_NAME_USE)
 
@@ -167,5 +167,5 @@ def get_author(filename):
     pSD = get_file_security(filename)
     owner_name, owner_domain, owner_sid_type = pSD.get_owner()
     if owner_domain:
-        owner_name = '{}\\{}'.format(owner_domain, owner_name)
+        owner_name = f'{owner_domain}\\{owner_name}'
     return owner_name

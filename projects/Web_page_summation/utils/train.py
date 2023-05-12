@@ -4,9 +4,6 @@ import time
 from model import Model
 from utils import build_dict, build_dataset, batch_iter
 start = time.perf_counter()
-default_path = '.'
-
-
 class args:
     pass
 
@@ -27,16 +24,18 @@ args.toy = False  # "store_true"
 args.with_model = "store_true"
 
 
-if not os.path.exists(default_path + "saved_model"):
-    os.mkdir(default_path + "saved_model")
+default_path = '.'
+if not os.path.exists(f"{default_path}saved_model"):
+    os.mkdir(f"{default_path}saved_model")
 else:
     # if args.with_model:
-    old_model_checkpoint_path = open(
-        default_path + 'saved_model/checkpoint', 'r')
+    old_model_checkpoint_path = open(f'{default_path}saved_model/checkpoint', 'r')
     old_model_checkpoint_path = "".join(
         [
-            default_path + "saved_model/",
-            old_model_checkpoint_path.read().splitlines()[0].split('"')[1]])
+            f"{default_path}saved_model/",
+            old_model_checkpoint_path.read().splitlines()[0].split('"')[1],
+        ]
+    )
 
 
 print("Building dictionary...")
@@ -100,7 +99,6 @@ with tf.Session() as sess:
         if step % num_batches_per_epoch == 0:
             hours, rem = divmod(time.perf_counter() - start, 3600)
             minutes, seconds = divmod(rem, 60)
-            saver.save(sess, default_path +
-                       "saved_model/model.ckpt", global_step=step)
+            saver.save(sess, f"{default_path}saved_model/model.ckpt", global_step=step)
             print(" Epoch {0}: Model is saved.".format(step // num_batches_per_epoch),
                   "Elapsed: {:0>2}:{:0>2}:{:05.2f}".format(int(hours), int(minutes), seconds), "\n")

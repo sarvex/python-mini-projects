@@ -14,22 +14,15 @@ with open(filename, "r") as f:
         # else use this alternate method:
         # list_of_words.extend(re.findall(r"[\w]+", line))
 
-        
+
 # Creating a dictionary to store the number of occurence of a word
 unique = {}
 for each in list_of_words:
     if each not in unique:
         unique[each] = 0
     unique[each] += 1
- 
-# Creating a list to sort the final unique words
-s = []
 
-# If occurence of a word(val) is 1 then it is unique
-for key, val in unique.items():
-    if val == 1:
-        s.append(key)
-        
+s = [key for key, val in unique.items() if val == 1]
 print(sorted(s))
     
 

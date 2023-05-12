@@ -21,10 +21,7 @@ def getfoldername(filename):
     'Alpha@@.txt' --> 'a'
     '!@#.txt' --> 'misc'
     '''
-    if filename[0].isalpha():
-        return filename[0].lower()
-    else:
-        return 'misc'
+    return filename[0].lower() if filename[0].isalpha() else 'misc'
 
 
 def readdirectory():

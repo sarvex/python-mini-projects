@@ -96,9 +96,8 @@ def play(word):
     # if the variable of guess is true means user win the game
     if guessed:
         print("Congrats, you guessed the word! You win!")
-    # else means user lose the game.
     else:
-        print("Sorry, you ran out of tries. The word was " + word + ". Maybe next time!")
+        print(f"Sorry, you ran out of tries. The word was {word}. Maybe next time!")
 
 
 # function to display the format of hangman

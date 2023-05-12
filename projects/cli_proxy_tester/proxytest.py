@@ -24,16 +24,15 @@ def add_proxies_to_file(csv_path: str, proxies: list):
         if len(pr_file) == 0:
             # First proxy in the file
             pr_file = pr_file.append(proxy, ignore_index=True)
-        else:
-            if len(pr_file.loc[(pr_file['proxy_type'] == proxy['proxy_type']) &
+        elif len(pr_file.loc[(pr_file['proxy_type'] == proxy['proxy_type']) &
                                (pr_file['proxy_address'] == proxy['proxy_address'])]) > 0:
-                # Proxy is already in the file
-                pr_file.loc[(pr_file['proxy_type'] == proxy['proxy_type']) &
-                            (pr_file['proxy_address'] == proxy['proxy_address']),
-                            ['proxy_status']] = proxy['proxy_status']
-            else:
-                # Proxy is not yet in the file
-                pr_file = pr_file.append(proxy, ignore_index=True)
+            # Proxy is already in the file
+            pr_file.loc[(pr_file['proxy_type'] == proxy['proxy_type']) &
+                        (pr_file['proxy_address'] == proxy['proxy_address']),
+                        ['proxy_status']] = proxy['proxy_status']
+        else:
+            # Proxy is not yet in the file
+            pr_file = pr_file.append(proxy, ignore_index=True)
 
     pr_file = pr_file.drop_duplicates()
     pr_file.to_csv(csv_path, index=False)
@@ -93,13 +92,10 @@ def test_csv_file(iptest: str, csv_path: str):
     else:
         raise FileNotFoundError
 
-    proxies: list = []
-
-    for index, proxy in pr_file.iterrows():
-        proxies.append(test_proxy(proxy['proxy_type'],
-                                  proxy['proxy_address'],
-                                  iptest))
-
+    proxies: list = [
+        test_proxy(proxy['proxy_type'], proxy['proxy_address'], iptest)
+        for index, proxy in pr_file.iterrows()
+    ]
     add_proxies_to_file(csv_path, proxies)
 
 

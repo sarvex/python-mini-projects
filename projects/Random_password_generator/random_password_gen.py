@@ -18,7 +18,7 @@ password = []
 
 
 def generate_pass(length, array, is_alpha=False):
-    for i in range(length):
+    for _ in range(length):
         index = random.randint(0, len(array) - 1)
         character = array[index]
         if is_alpha:

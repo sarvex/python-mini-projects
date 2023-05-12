@@ -10,18 +10,12 @@ def ageCalculator(years, months, days):         # creating a function for age ca
     today_month = int(today.strftime("%m"))
     today_year = int(today.strftime("%y"))
 
-    if today_day < day:                         # calculation for no of days
+    if today_day < day:                     # calculation for no of days
         today_day += 31
-        age_day = today_day - days
-    else:
-        age_day = today_day - days
-
-    if today_month < months:                    # calculation for no of months
+    age_day = today_day - days
+    if today_month < months:                # calculation for no of months
         today_month += 12
-        age_months = today_month - months
-    else:
-        age_months = today_month - months
-
+    age_months = today_month - months
     age_year = today_year - years               # no if years
 
     print(f"your age of today is :{today_year}-{today_month}-{today_day}")

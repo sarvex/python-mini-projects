@@ -25,11 +25,9 @@ def get_driver():
     chrome_options.add_experimental_option("prefs", prefs)
     chrome_options.add_argument("--kiosk-printing")
 
-    # launch browser with predefined settings
-    browser = webdriver.Chrome(
+    return webdriver.Chrome(
         executable_path=ChromeDriverManager().install(), options=chrome_options
     )
-    return browser
 
 
 def download_article(URL):

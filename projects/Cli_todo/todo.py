@@ -20,7 +20,7 @@ def tasks(ctx):
         click.echo('YOUR TASKS\n**********')
         #Iterate through all the tasks stored in the context
         for i, task in ctx.obj['TASKS'].items():
-            click.echo('• ' + task + ' (ID: ' + i + ')')
+            click.echo(f'• {task} (ID: {i})')
         click.echo('')
     else:
         click.echo('No tasks yet! Use ADD to add one.\n')
@@ -33,10 +33,10 @@ def add(ctx, add_task):
     if add_task:
         #Add task to list in context 
         ctx.obj['TASKS'][ctx.obj['LATEST']] = add_task
-        click.echo('Added task "' + add_task + '" with ID ' + str(ctx.obj['LATEST']))
+        click.echo(f'Added task "{add_task}" with ID ' + str(ctx.obj['LATEST']))
         #Open todo.txt and write current index and tasks with IDs (separated by " ``` ")
-        curr_ind = [str(ctx.obj['LATEST'] + 1)] 
-        tasks = [str(i) + '```' + t for (i, t) in ctx.obj['TASKS'].items()]
+        curr_ind = [str(ctx.obj['LATEST'] + 1)]
+        tasks = [f'{str(i)}```{t}' for (i, t) in ctx.obj['TASKS'].items()]
         with open('./todo.txt', 'w') as f:
             f.writelines(['%s\n' % en for en in curr_ind + tasks])
 
@@ -50,11 +50,11 @@ def done(ctx, fin_taskid):
         task = ctx.obj['TASKS'][str(fin_taskid)]
         #Delete task from task list in context
         del ctx.obj['TASKS'][str(fin_taskid)]
-        click.echo('Finished and removed task "' + task + '" with id ' + str(fin_taskid))
+        click.echo(f'Finished and removed task "{task}" with id {str(fin_taskid)}')
         #Open todo.txt and write current index and tasks with IDs (separated by " ``` ")
         if ctx.obj['TASKS']:
-            curr_ind = [str(ctx.obj['LATEST'] + 1)] 
-            tasks = [str(i) + '```' + t for (i, t) in ctx.obj['TASKS'].items()]
+            curr_ind = [str(ctx.obj['LATEST'] + 1)]
+            tasks = [f'{str(i)}```{t}' for (i, t) in ctx.obj['TASKS'].items()]
             with open('./todo.txt', 'w') as f:
                 f.writelines(['%s\n' % en for en in curr_ind + tasks])
         else:
@@ -62,7 +62,7 @@ def done(ctx, fin_taskid):
             with open('./todo.txt', 'w') as f:
                 f.writelines([str(0) + '\n'])
     else:
-        click.echo('Error: no task with id ' + str(fin_taskid))
+        click.echo(f'Error: no task with id {str(fin_taskid)}')
 
 if __name__ == '__main__':
     todo()

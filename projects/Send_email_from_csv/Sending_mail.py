@@ -41,7 +41,7 @@ def send_mail():
         spamreader = csv.reader(csvfile, delimiter=" ", quotechar="|")
         for email in spamreader:
             s.send_message(email_address, email[0], message)
-            print("Send To " + email[0])
+            print(f"Send To {email[0]}")
 
     # terminating the session
     s.quit()

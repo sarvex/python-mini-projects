@@ -9,7 +9,7 @@ def Resize_image(size, image):
         try:
             im = Image.open(image)
             im.thumbnail(size, Image.ANTIALIAS)
-            im.save("resize/" + str(image) + ".jpg")
+            im.save(f"resize/{str(image)}.jpg")
         except Exception as ex:
             print(f"Error: {str(ex)} to {image}")
 

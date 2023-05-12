@@ -36,7 +36,7 @@ length = len(ask)
 output = ""
 
 for i in range(length):
-    if ask[i] in symbols.keys():
-        output = output + " " + symbols.get(ask[i])
+    if ask[i] in symbols:
+        output = f"{output} {symbols.get(ask[i])}"
 
 print(output)   

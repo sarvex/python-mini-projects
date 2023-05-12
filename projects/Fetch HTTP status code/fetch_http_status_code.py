@@ -10,12 +10,12 @@ requestURL = input("Enter the URL to be invoked: ")
 try:
     response = urlopen(requestURL)
     #In case of success, prints success status code and thumbs_up emoji
-    print('Status code : ' + str(response.code) + ' ' + emoji.emojize(':thumbs_up:'))
+    print(f'Status code : {str(response.code)} ' + emoji.emojize(':thumbs_up:'))
     print('Message : ' + 'Request succeeded. Request returned message - ' + response.reason)
 except HTTPError as e:
     #In case of request failure, prints HTTP error status code and thumbs_down emoji
-    print('Status : ' + str(e.code) + ' ' + emoji.emojize(':thumbs_down:'))
-    print('Message : Request failed. Request returned reason - ' + e.reason)
+    print(f'Status : {str(e.code)} ' + emoji.emojize(':thumbs_down:'))
+    print(f'Message : Request failed. Request returned reason - {e.reason}')
 except URLError as e:
     #In case of bad URL or connection failure, prints Win Error and thumbs_down emoji
     print('Status :',  str(e.reason).split(']')[0].replace('[','') +  ' ' + emoji.emojize(':thumbs_down:'))

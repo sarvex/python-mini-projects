@@ -21,9 +21,7 @@ class PwdDisplay:
         os.remove("tmp.txt")
 
     def file_path(self) -> list[str]:
-        # Obtention du chemin des fichiers xml
-        chemin_fichiers = glob.glob("passwords/"+"*xml")
-        return chemin_fichiers
+        return glob.glob("passwords/"+"*xml")
 
     def get_ssid_pwd(self) -> list:
         ssid_pwd = {}
@@ -36,16 +34,13 @@ class PwdDisplay:
         return ssid_pwd
 
     def display_password(self):
-        index=1
         info = self.get_ssid_pwd()
         list_ssid, list_pwd = [], []
         print("Here is the list of Wi-Fi networks registered on this device : \n")
-        for i in info:
+        for index, i in enumerate(info, start=1):
             print(f"[{index}] {i}")
             list_ssid.append(i)
             list_pwd.append(info[i])
-            index+=1
-
         nb = int(input("Please choose a number : "))
         print(f"SSID : {list_ssid[nb-1]}\nPassword : {list_pwd[nb-1]}\n")
 

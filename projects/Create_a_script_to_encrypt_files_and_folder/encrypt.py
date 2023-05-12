@@ -9,7 +9,7 @@ def encrypt_dir(path):
     for root, _, files in os.walk("."):
         for file in files:
             file_path = os.path.join(root, file)
-            print(file_path + " is encrypting.")
+            print(f"{file_path} is encrypting.")
             encrypt_file(file_path)
 
 
@@ -26,7 +26,7 @@ def encrypt_file(path):
     ciphertext = iv + mycipher.encrypt(plain_text.encode())
 
     # output
-    with open(path + ".bin", "wb") as file_out:
+    with open(f"{path}.bin", "wb") as file_out:
         file_out.write(ciphertext[16:])
 
 

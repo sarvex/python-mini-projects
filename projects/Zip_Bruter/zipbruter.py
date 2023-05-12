@@ -46,7 +46,7 @@ class ZipBruter:
             try:
                 with ZipFile(self.file) as zipfile:
                     zipfile.extractall(pwd=passwd.encode())
-                print('Found passwd: %s' % passwd)
+                print(f'Found passwd: {passwd}')
             except (RuntimeError, BadZipfile):
                 pass
 
@@ -70,7 +70,7 @@ class ZipBruter:
     def read_wordlist(self) -> str:
         """Read given wordlist file and yield target passwds"""
         with open(self.word_list, 'r') as file:
-            for line in file.readlines():
+            for line in file:
                 yield line.strip()
 
 

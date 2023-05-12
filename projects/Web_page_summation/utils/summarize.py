@@ -15,9 +15,9 @@ def summarize(url=None, LANGUAGE='English', SENTENCES_COUNT=2):
     summarizer.stop_words = get_stop_words(LANGUAGE)
     result = ''
     for sentence in summarizer(parser.document, SENTENCES_COUNT):
-        result = result + ' ' + str(sentence)
+        result = f'{result} {str(sentence)}'
         try:
-            result = result + ' ' + str(sentence)
+            result = f'{result} {str(sentence)}'
 
         except:
             print(

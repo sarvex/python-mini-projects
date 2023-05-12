@@ -19,10 +19,7 @@ if args.type == 'h':
 elif args.type == 'm':
     sec = 60 / args.frequency
 
-if sec < 1.:
-    sec = 1.
-    
-
+sec = max(sec, 1.)
 if os.path.isdir(args.path) != True:
     os.mkdir(args.path)
 
@@ -31,11 +28,11 @@ try:
     while True:
         t = time.localtime()
         current_time = time.strftime("%H_%M_%S", t)
-        file = current_time + ".jpg"
+        file = f"{current_time}.jpg"
         image = pyautogui.screenshot(os.path.join(args.path,file))
         print(f"{file} saved successfully.\n")
         time.sleep(sec)
-        
+
 except KeyboardInterrupt:
     print("End of script by user interrupt")
 

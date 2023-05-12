@@ -45,7 +45,7 @@ if __name__ == "__main__":
         image_path = "sample_image.png"  # default image path
 
     if len(sys.argv) == 2:
-        print("Using {} as Image Path\n".format(sys.argv[1]))
+        print(f"Using {sys.argv[1]} as Image Path\n")
         image_path = sys.argv[1]
 
     image = cv2.imread(image_path, 0)  # read image

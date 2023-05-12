@@ -9,7 +9,7 @@ url='http://quotes.toscrape.com'
 html=requests.get(url)
 bs=BeautifulSoup(html.text,'html.parser')
 
-# Tries to open the file 
+# Tries to open the file
 try:
     csv_file=open('quote_list.csv','w')
     fieldnames=['quote','author','tags']
@@ -25,12 +25,10 @@ try:
             #Extract the text part of quote, author and tags
             text=quote.find('span',{'class':'text'}).text
             author=quote.find('small',{'class':'author'}).text
-            tags=[]
-            for tag in quote.findAll('a',{'class':'tag'}):
-                tags.append(tag.text)
+            tags = [tag.text for tag in quote.findAll('a',{'class':'tag'})]
             #Writes the current quote,author and tags to a csv file
             dictwriter.writerow({'quote':text,'author':author,'tags':tags})
-        
+
         #Finds the link to next page
         next=bs.find('li',{'class':'next'})
         if not next: 

@@ -19,10 +19,7 @@ class Split_Files:
         if os.path.exists(self.directory):
             shutil.rmtree(self.directory)
         os.mkdir(self.directory)
-        if self.file_name.endswith('.txt'):
-            self.file_extension = '.txt'
-        else:
-            self.file_extension = '.csv'
+        self.file_extension = '.txt' if self.file_name.endswith('.txt') else '.csv'
         self.file_number = 1
 
     def split_data(self):

@@ -23,4 +23,4 @@ try:
     print("SUCCESS")
 
 except IndexError:
-    print('Usage: %s URL' % script_name)
+    print(f'Usage: {script_name} URL')

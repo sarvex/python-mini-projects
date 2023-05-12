@@ -52,15 +52,12 @@ def Stop():
 
 # Reset function of the stopwatch 
 def Reset(label):
-	global counter
-	counter = 0
-	# If reset is pressed after pressing stop. 
-	if not running:
-		reset['state'] = 'disabled'
-		label['text'] = '00:00:00'
-	# If reset is pressed while the stopwatch is running. 
-	else:
-		label['text'] = '00:00:00'
+    global counter
+    counter = 0
+    	# If reset is pressed after pressing stop. 
+    if not running:
+        reset['state'] = 'disabled'
+    label['text'] = '00:00:00'
 
 
 root = Tkinter.Tk()

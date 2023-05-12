@@ -8,8 +8,7 @@ def get_files(path):
     '''
     return a list of files avialable in given folder
     '''
-    files = glob.glob(f'{path}/*')
-    return files
+    return glob.glob(f'{path}/*')
 
 
 def getfullpath(path):

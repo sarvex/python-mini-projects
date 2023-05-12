@@ -24,33 +24,28 @@ def BVN_checker( ):
     
        				
 def open_acct( ):
-	global gen_bvn
-	print("Welcome to our online Account opening services.")
-	print("loading...")
-# creating an empty list to serve as a temporary place holder.
-	temp_storage= [ ]
-	f_name= input("Enter your first name:")
-	s_name= input ("Enter your second name:")
-	sex = input("Enter sex [M/F]:")
-	BVN_checker( )
-	temp_storage.append(f_name)
-	temp_storage.append(s_name)
-	temp_storage.append(sex)
-	temp_storage.append(gen_bvn)
-	details= " ".join(temp_storage)
-	split_details = details.split(" ")
-	#print(split_details)
-	print(split_details[0]+" "+split_details[1])
-	print(split_details[2])
-	print("Your bvn is :"+split_details[3])
-	print("1. Press # to go back to options menu\n2. Press * to exit")
-	bck=input(":")
-	if bck=='#':
-	    options_menu( )
-	else:
-	    sys.exit( )
-	
-	exit( )
+    global gen_bvn
+    print("Welcome to our online Account opening services.")
+    print("loading...")
+    f_name= input("Enter your first name:")
+    s_name= input ("Enter your second name:")
+    sex = input("Enter sex [M/F]:")
+    BVN_checker( )
+    temp_storage = [f_name, s_name, sex, gen_bvn]
+    details= " ".join(temp_storage)
+    split_details = details.split(" ")
+    	#print(split_details)
+    print(f"{split_details[0]} {split_details[1]}")
+    print(split_details[2])
+    print(f"Your bvn is :{split_details[3]}")
+    print("1. Press # to go back to options menu\n2. Press * to exit")
+    bck=input(":")
+    if bck=='#':
+        options_menu( )
+    else:
+        sys.exit( )
+
+    exit( )
 	
 def upgrade_migrate( ):
 		print("Welcome to our online Upgrade/Migration services.\n 1. Ugrade\n 2. Migrate")
@@ -69,58 +64,56 @@ def upgrade_migrate( ):
 		else:
 			sys.exit( )
 
-def balance ( ):
-	print("ACCOUNT\tBALANCE\n CHECKER")
-	print("press # is go back to the Main Menu.")
-	pin=input("Enter your 4 digit pin:")
+def balance( ):
+    print("ACCOUNT\tBALANCE\n CHECKER")
+    print("press # is go back to the Main Menu.")
+    pin=input("Enter your 4 digit pin:")
 # isdigit( ) is used to  check for digits within a str while the nested if is used to make sure the user inputs 4 digits.
 
 ###```i am to put the pin trial in a while loop```###REMINDER!!!
 
-	if len(pin)!=4:
-	   	print("Make sure its a 4digit pin.")
-	   	time.sleep(5)
-	   	balance( )
-	else:
-	   		    if pin.isdigit( ):
-	   		        time.sleep(5)
-	   		        print("Loading...")
-	   		        exit( )
-	   		    elif pin== "#":
-	   		        options_menu( )
-	   		    else:
-	   		        time.sleep(15)
-	   		        print("wrong pin")
-	   		        sys.exit( )
+    if len(pin)!=4:
+        print("Make sure its a 4digit pin.")
+        time.sleep(5)
+        balance( )
+    elif pin.isdigit( ):
+        time.sleep(5)
+        print("Loading...")
+        exit( )
+    elif pin== "#":
+        options_menu( )
+    else:
+        time.sleep(15)
+        print("wrong pin")
+        sys.exit( )
 		
 def transf( ):
-	print("1. Transfer self\n2. Transfer others")
-	print("press # is go back to the Main Menu.")
-	trnsf=input(":")
-	if trnsf == "#" :
-	    options_menu( )
-	elif trnsf == "1":
-	    time.sleep(5)
-	    print("Sending...")
-	    exit( )
-	elif trnsf=="2":
-	    time.sleep(5)
-	    num=int(input("Enter receivers mobile number:"))
-	    print("Transferring to",num)
-	    exit( )
-	else:
-	    if trnsf.isdigit( )!= True:
-	        time.sleep(5)
-	        print("Not an option")
-	        sys.exit( )
-	    elif trnsf.isdigit( ) and len(trnsf)>2:
-	        time.sleep( 5)
-	        print("wrong password.")
-	        sys.exit( )
-	    else:
-	        time.sleep(10)
-	        print("An error has occurred")
-	        sys.exit( )
+    print("1. Transfer self\n2. Transfer others")
+    print("press # is go back to the Main Menu.")
+    trnsf=input(":")
+    if trnsf == "#":
+        options_menu( )
+    elif trnsf == "1":
+        time.sleep(5)
+        print("Sending...")
+        exit( )
+    elif trnsf=="2":
+        time.sleep(5)
+        num=int(input("Enter receivers mobile number:"))
+        print("Transferring to",num)
+        exit( )
+    else:
+        if trnsf.isdigit( )!= True:
+            time.sleep(5)
+            print("Not an option")
+        elif trnsf.isdigit( ) and len(trnsf)>2:
+            time.sleep( 5)
+            print("wrong password.")
+        else:
+            time.sleep(10)
+            print("An error has occurred")
+
+        sys.exit( )
 	        	
 def funds( ):
 	time.sleep(3)

@@ -26,10 +26,10 @@ def set_alarm():
             error = False
         else:
             print(">>> Error: Time format invalid! Please try again!\n")
-            
+
     cd = os.path.dirname(os.path.realpath(__file__))
     musics_path = os.path.join(cd, "musics")
-    
+
     rename_files_with_whitespaces(cd, os.listdir(musics_path), "musics")
 
     musics = os.listdir(musics_path)
@@ -38,9 +38,9 @@ def set_alarm():
         exit()
 
     elif len(musics) == 1:
-        print(">> Alarm music has been set default --> " + clean_filename(musics[0]))
+        print(f">> Alarm music has been set default --> {clean_filename(musics[0])}")
         selected_music = musics[0]
-    
+
     else:
         error = True
         while error:
@@ -48,17 +48,17 @@ def set_alarm():
                 print("\nSelect any alarm music:\n")
                 for i in range(1, len(musics) + 1):
                     print(f"{i}. {clean_filename(musics[i - 1])}")
-                    
+
                 user_input = int(input("\nEnter the index of the listed musics (e.g. 1): "))
                 selected_music = musics[user_input - 1]
-                print(">> Alarm music has been set --> "+ clean_filename(selected_music))
+                print(f">> Alarm music has been set --> {clean_filename(selected_music)}")
                 error = False
 
             except:
                 print(">>> Error: Invalid Index! Please try again!\n")
-    
+
     print(f"\n>>> Alarm has been set successfully for {user_set_time}! Please dont close the program! <<<")
-    while stop == False:
+    while not stop:
         current_time = str(datetime.datetime.now().time())
         if current_time >= playback_time:
             stop = True

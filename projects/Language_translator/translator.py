@@ -34,7 +34,7 @@ while allow:  # checking if language code is valid
         print()  # adding an empty space
 
     else:  # validating user input
-        for lan_code in language.keys():
+        for lan_code in language:
             if lan_code == user_code:
                 print(f"You have selected {language[lan_code]}")
                 allow = False

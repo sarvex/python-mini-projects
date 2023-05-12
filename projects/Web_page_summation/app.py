@@ -46,13 +46,11 @@ def readCsv(path):
     try:
         with open(path, 'r') as userFile:
             userFileReader = csv.reader(userFile)
-            for row in userFileReader:
-                data.append(row)
+            data.extend(iter(userFileReader))
     except:
         with open(path, 'r', encoding="mbcs") as userFile:
             userFileReader = csv.reader(userFile)
-            for row in userFileReader:
-                data.append(row)       
+            data.extend(iter(userFileReader))
     return data
 
 

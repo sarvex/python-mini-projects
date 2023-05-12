@@ -27,12 +27,12 @@ thicc=2
 rpred=[99]
 lpred=[99]
 
-while(True):
+while True:
     ret, frame = cap.read()
     height,width = frame.shape[:2] 
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    
+
     faces = face.detectMultiScale(gray,minNeighbors=5,scaleFactor=1.1,minSize=(25,25))
     left_eye = leye.detectMultiScale(gray)
     right_eye =  reye.detectMultiScale(gray)
@@ -79,26 +79,33 @@ while(True):
     else:
         score=score-1
         cv2.putText(frame,"Open",(10,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
-    
-        
-    if(score<0):
-        score=0   
-    cv2.putText(frame,'Score:'+str(score),(100,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
-    if(score>15):
+
+
+    score = max(score, 0)
+    cv2.putText(
+        frame,
+        f'Score:{str(score)}',
+        (100, height - 20),
+        font,
+        1,
+        (255, 255, 255),
+        1,
+        cv2.LINE_AA,
+    )
+    if (score>15):
         #person is feeling sleepy so we beep the alarm
         cv2.imwrite(os.path.join(path,'image.jpg'),frame)
         try:
             sound.play()
-            
+
         except:  # isplaying = False
             pass
-        if(thicc<16):
+        if (thicc<16):
             thicc= thicc+2
         else:
             thicc=thicc-2
-            if(thicc<2):
-                thicc=2
-        cv2.rectangle(frame,(0,0),(width,height),(0,0,255),thicc) 
+            thicc = max(thicc, 2)
+        cv2.rectangle(frame,(0,0),(width,height),(0,0,255),thicc)
     cv2.imshow('frame',frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

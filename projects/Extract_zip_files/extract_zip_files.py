@@ -24,7 +24,7 @@ def extract(zip_file):
         
         #Will use this to save the unzipped file in the current directory
         current_working_directory = os.getcwd()
-        new_directory = current_working_directory + "/" + file_name
+        new_directory = f"{current_working_directory}/{file_name}"
         #Logic to unzip the file
         with zipfile.ZipFile(zip_file, 'r') as zip_object:
             zip_object.extractall(new_directory)

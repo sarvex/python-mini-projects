@@ -27,25 +27,19 @@ def build_dict(step, toy=False):
         train_article_list = get_text_list(train_article_path, toy)
         train_title_list = get_text_list(train_title_path, toy)
 
-        words = list()
+        words = []
         for sentence in train_article_list + train_title_list:
-            for word in word_tokenize(sentence):
-                words.append(word)
-
+            words.extend(iter(word_tokenize(sentence)))
         word_counter = collections.Counter(words).most_common()
-        word_dict = dict()
-        word_dict["<padding>"] = 0
-        word_dict["<unk>"] = 1
-        word_dict["<s>"] = 2
-        word_dict["</s>"] = 3
+        word_dict = {"<padding>": 0, "<unk>": 1, "<s>": 2, "</s>": 3}
         for word, _ in word_counter:
             word_dict[word] = len(word_dict)
 
-        with open(default_path + "word_dict.pickle", "wb") as f:
+        with open(f"{default_path}word_dict.pickle", "wb") as f:
             pickle.dump(word_dict, f)
 
     elif step == "valid":
-        with open(default_path + "word_dict.pickle", "rb") as f:
+        with open(f"{default_path}word_dict.pickle", "rb") as f:
             word_dict = pickle.load(f)
 
     reversed_dict = dict(zip(word_dict.values(), word_dict.keys()))
@@ -73,11 +67,10 @@ def build_dataset(
 
     if step == "valid":
         return x
-    else:
-        y = [word_tokenize(d) for d in title_list]
-        y = [[word_dict.get(w, word_dict["<unk>"]) for w in d] for d in y]
-        y = [d[:(summary_max_len - 1)] for d in y]
-        return x, y
+    y = [word_tokenize(d) for d in title_list]
+    y = [[word_dict.get(w, word_dict["<unk>"]) for w in d] for d in y]
+    y = [d[:(summary_max_len - 1)] for d in y]
+    return x, y
 
 
 def batch_iter(inputs, outputs, batch_size, num_epochs):
@@ -85,7 +78,7 @@ def batch_iter(inputs, outputs, batch_size, num_epochs):
     outputs = np.array(outputs)
 
     num_batches_per_epoch = (len(inputs) - 1) // batch_size + 1
-    for epoch in range(num_epochs):
+    for _ in range(num_epochs):
         for batch_num in range(num_batches_per_epoch):
             start_index = batch_num * batch_size
             end_index = min((batch_num + 1) * batch_size, len(inputs))
@@ -99,10 +92,10 @@ def get_init_embedding(reversed_dict, embedding_size):
     print("Loading Glove vectors...")
     # word_vectors = KeyedVectors.load_word2vec_format(word2vec_file)
 
-    with open(default_path + "glove/model_glove_300.pkl", 'rb') as handle:
+    with open(f"{default_path}glove/model_glove_300.pkl", 'rb') as handle:
         word_vectors = pickle.load(handle)
 
-    word_vec_list = list()
+    word_vec_list = []
     for _, word in sorted(reversed_dict.items()):
         try:
             word_vec = word_vectors.word_vec(word)

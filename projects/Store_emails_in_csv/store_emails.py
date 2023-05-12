@@ -64,28 +64,14 @@ def write_to_csv(mail, writer, N, total_no_of_mails):
                     content_type = part.get_content_type()
                     content_disposition = str(part.get("Content-Disposition"))
                     try:
-                        # get the email email_body
-                        email_body = part.get_payload(decode=True)
-                        if email_body:
+                        if email_body := part.get_payload(decode=True):
                             email_text = get_text(email_body.decode('utf-8'))
                     except Exception as exc:
                         logger.warning('Caught exception: %r', exc)
-                    if (
-                        content_type == "text/plain"
-                        and "attachment" not in content_disposition
-                    ):
-                        # print text/plain emails and skip attachments
-                        # print(email_text)
-                        pass
-                    elif "attachment" in content_disposition:
-                        pass
-
             else:
                 # extract content type of email
                 content_type = msg.get_content_type()
-                # get the email email_body
-                email_body = msg.get_payload(decode=True)
-                if email_body:
+                if email_body := msg.get_payload(decode=True):
                     email_text = get_text(email_body.decode('utf-8'))
 
             if email_text is not None:

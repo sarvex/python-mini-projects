@@ -15,5 +15,5 @@ m = getattr(hashlib,hashtype)()
 m.update(password.encode())
 
 # output
-print("< hash-type : " + hashtype + " >")
+print(f"< hash-type : {hashtype} >")
 print(m.hexdigest())

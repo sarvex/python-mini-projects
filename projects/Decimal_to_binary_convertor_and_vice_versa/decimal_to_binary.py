@@ -4,9 +4,9 @@ try:
         raise ValueError
     if menu == 1:
         dec = int(input("Input your decimal number:\nDecimal: "))
-        print("Binary: {}".format(bin(dec)[2:]))
+        print(f"Binary: {bin(dec)[2:]}")
     elif menu == 2:
         binary = input("Input your binary number:\n Binary: ")
-        print("Decimal: {}".format(int(binary, 2)))
+        print(f"Decimal: {int(binary, 2)}")
 except ValueError:
     print ("please choose a valid option")

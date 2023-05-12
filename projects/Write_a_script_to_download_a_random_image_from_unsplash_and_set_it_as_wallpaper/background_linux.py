@@ -19,7 +19,7 @@ def setup(pathtofile):
     '''
     setting the up file
     '''
-    system("nitrogen --set-auto {}".format(path.join(getcwd(), pathtofile)))
+    system(f"nitrogen --set-auto {path.join(getcwd(), pathtofile)}")
 
 
 if __name__ == "__main__":

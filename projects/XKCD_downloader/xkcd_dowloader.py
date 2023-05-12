@@ -14,7 +14,7 @@ args = vars(parser.parse_args())
 issue_number = args['issue']
 
 #Complete url for the issue
-url = "https://xkcd.com/"+ issue_number
+url = f"https://xkcd.com/{issue_number}"
 
 
 response = requests.get(url)
@@ -24,7 +24,7 @@ if response.status_code ==200:
     soup = bs(response.content, 'html.parser')
     image_link = soup.find_all('img')[2]['src']
     image_name = image_link.split('/')[-1]
-    image_url = "https:" + image_link
+    image_url = f"https:{image_link}"
     r = requests.get(image_url, stream=True)
     if r.status_code == 200:
         #This ensures the image file is loaded correctly

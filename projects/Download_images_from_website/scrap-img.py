@@ -13,33 +13,25 @@ output = "output"
 
 
 def get_url(path, url):
-    driver = webdriver.Chrome(executable_path=r"{}".format(path))
+    driver = webdriver.Chrome(executable_path=f"{path}")
     driver.get(url)
     print("loading.....")
-    res = driver.execute_script("return document.documentElement.outerHTML")
-
-    return res
+    return driver.execute_script("return document.documentElement.outerHTML")
 
 
 def get_img_links(res):
     soup = BeautifulSoup(res, "lxml")
-    imglinks = soup.find_all("img", src=True)
-    return imglinks
+    return soup.find_all("img", src=True)
 
 
 def download_img(img_link, index):
     try:
         extensions = [".jpeg", ".jpg", ".png", ".gif"]
-        extension = ".jpg"
-        for exe in extensions:
-            if img_link.find(exe) > 0:
-                extension = exe
-                break
-
+        extension = next((exe for exe in extensions if img_link.find(exe) > 0), ".jpg")
         img_data = rq.get(img_link).content
         with open(output + "\\" + str(index + 1) + extension, "wb+") as f:
             f.write(img_data)
-        
+
         f.close()
     except Exception:
         pass
@@ -52,8 +44,7 @@ if not os.path.isdir(output):
     os.mkdir(output)
 
 for index, img_link in enumerate(img_links):
-    img_link = img_link["src"]
     print("Downloading...")
-    if img_link:
+    if img_link := img_link["src"]:
         download_img(img_link, index)
 print("Download Complete!!")

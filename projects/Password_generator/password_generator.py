@@ -30,9 +30,7 @@ class App:
 
     def generate_password(self):
         characters = string.ascii_letters + string.punctuation + string.digits
-        password = ""
-        for x in range(28):
-            password+=choice(characters)
+        password = "".join(choice(characters) for _ in range(28))
         self.password_entry.delete(0, END)
         self.password_entry.insert(0, password)
         

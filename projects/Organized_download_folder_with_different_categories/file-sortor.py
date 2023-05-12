@@ -33,15 +33,14 @@ def sorting(file):
 
 #iterat through each file
 for file in files:
-    dist = sorting(file)
-    if dist:
+    if dist := sorting(file):
         try:
-            shutil.move(file, "../download-sorting/" + dist)
+            shutil.move(file, f"../download-sorting/{dist}")
         except:
-            print(file + " is already exist")
+            print(f"{file} is already exist")
     else:
         try:
             shutil.move(file, "../download-sorting/others")
         except:
-            print(file + " is already exist")
+            print(f"{file} is already exist")
 

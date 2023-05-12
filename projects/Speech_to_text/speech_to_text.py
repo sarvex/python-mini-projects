@@ -9,8 +9,7 @@ def record_voice():
 		print("I'm trying to hear you: ")
 		audio = microphone.listen(live_phone)
 		try:
-			phrase = microphone.recognize_google(audio, language='en')
-			return phrase
+			return microphone.recognize_google(audio, language='en')
 		except speech_recognition.UnkownValueError:
 			return "I didn't understand what you said"
 

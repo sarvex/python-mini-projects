@@ -8,12 +8,10 @@ def main(username):
     '''main function accept instagram username
     return an dictionary object containging profile deatils
     '''
-    url = "https://www.instagram.com/{}/?hl=en".format(username)
+    url = f"https://www.instagram.com/{username}/?hl=en"
     page = requests.get(url)
     tree = html.fromstring(page.content)
-    data = tree.xpath('//meta[starts-with(@name,"description")]/@content')
-
-    if data:
+    if data := tree.xpath('//meta[starts-with(@name,"description")]/@content'):
         data = tree.xpath('//meta[starts-with(@name,"description")]/@content')
         data = data[0].split(', ')
         followers = data[0][:-9].strip()
@@ -21,7 +19,7 @@ def main(username):
         posts = re.findall(r'\d+[,]*', data[2])[0]
         name = re.findall(r'name":"\w*[\s]+\w*"', page.text)[-1][7:-1]
         aboutinfo = re.findall(r'"description":"([^"]+)"', page.text)[0]
-        instagram_profile = {
+        return {
             'success': True,
             'profile': {
                 'name': name,
@@ -30,15 +28,11 @@ def main(username):
                 'followers': followers,
                 'following': following,
                 'posts': posts,
-                'aboutinfo': aboutinfo
-            }
+                'aboutinfo': aboutinfo,
+            },
         }
     else:
-        instagram_profile = {
-            'success': False,
-            'profile': {}
-        }
-    return instagram_profile
+        return {'success': False, 'profile': {}}
 
 
 #  python InstgramProfile.py username

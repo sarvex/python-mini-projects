@@ -12,11 +12,7 @@ def get_exif(image):
 
 
 def get_labeled_exif(exif):
-    labeled = {}
-    for (key, val) in exif.items():
-        labeled[TAGS.get(key)] = val
-
-    return labeled
+    return {TAGS.get(key): val for key, val in exif.items()}
 
 im = Image.open(sys.argv[1])
 
@@ -37,24 +33,26 @@ labeled = get_labeled_exif(exif)
 ctime = os.path.getctime(sys.argv[1])
 
 # output information
-print("ImageName: %s" %(name))
-print("size: %sx%s" % (w, h))
-print("FileExtension: %s" %(file_extension))
+print(f"ImageName: {name}")
+print(f"size: {w}x{h}")
+print(f"FileExtension: {file_extension}")
 if ('ExifImageWidth' in labeled.keys()):
-    print("ImageWidth: %s" % (labeled['ExifImageWidth']))
+    print(f"ImageWidth: {labeled['ExifImageWidth']}")
 else:
     print("No ImageWidth")
 
 if ('ExifImageHeight' in labeled.keys()):
-    print("ImageHeight: %s" % (labeled['ExifImageHeight']))
+    print(f"ImageHeight: {labeled['ExifImageHeight']}")
 else:
     print("No ImageHeight")
 
 if ('DateTimeOriginal' in labeled.keys()):
-    print("DateTimeOriginal: %s" % (labeled['DateTimeOriginal']))
+    print(f"DateTimeOriginal: {labeled['DateTimeOriginal']}")
 else:
     print("No DateTimeOriginal")
 
-print("CreateDate: %s" % (datetime.fromtimestamp(ctime).strftime('%Y-%m-%d %H:%M:%S')))
-print("Author: %s" % (get_author(sys.argv[1])))
-print("Location: %s" % (get_location(sys.argv[1])))
+print(
+    f"CreateDate: {datetime.fromtimestamp(ctime).strftime('%Y-%m-%d %H:%M:%S')}"
+)
+print(f"Author: {get_author(sys.argv[1])}")
+print(f"Location: {get_location(sys.argv[1])}")

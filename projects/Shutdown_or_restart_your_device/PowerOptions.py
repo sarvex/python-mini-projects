@@ -4,7 +4,7 @@ import platform
 def shutdown():
     if platform.system() == "Windows":
         os.system('shutdown -s')
-    elif platform.system() == "Linux" or platform.system() == "Darwin":
+    elif platform.system() in ["Linux", "Darwin"]:
         os.system("shutdown -h now")
     else:
         print("Os not supported!")
@@ -12,7 +12,7 @@ def shutdown():
 def restart():
     if platform.system() == "Windows":
         os.system("shutdown -t 0 -r -f")
-    elif platform.system() == "Linux" or platform.system() == "Darwin":
+    elif platform.system() in ["Linux", "Darwin"]:
         os.system('reboot now')
     else:
         print("Os not supported!")
